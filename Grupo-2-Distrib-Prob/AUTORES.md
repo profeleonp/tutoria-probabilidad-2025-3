@@ -17,7 +17,7 @@ Periodos académicos 2025-3 y 2026-1
 
 Derivado del repositorio original [edutech_probs](https://github.com/jdvanegasm/edutech_probs), distribuído bajo licencia GNU GPL3
 
-## Autores
+## Coautores
 | Nombre                         | Código      | Correo Institucional         |
 |--------------------------------|-------------|------------------------------|
 | VANEGAS MAYORQUIN JUAN DANIEL  | 20222020077 |jdvanegasm@udistrital.edu.co  |
@@ -30,4 +30,5 @@ Derivado del repositorio original [edutech_probs](https://github.com/jdvanegasm/
 | Profesor                       | Correo Institucional    |
 |--------------------------------|-------------------------|
 | FERNANDO LEON PARADA, PH.D     | fleon@udistrital.edu.co |
+
 
