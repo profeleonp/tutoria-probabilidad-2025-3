@@ -4,7 +4,7 @@ Tutoría de Probabilidad
 Proyecto Curricular Ingeniería de Sistemas
 Facultad de Ingeniería
 Universidad Distrital Francisco José de Caldas
-Periodo académico 2025-3
+Periodos académicos 2025-3 y 2026-1
 
 ## Grupo 2.
 
@@ -25,8 +25,9 @@ Derivado del repositorio original [edutech_probs](https://github.com/jdvanegasm/
 
 
 
-### Director
+### Director y Productor
 
 | Profesor                       | Correo Institucional    |
 |--------------------------------|-------------------------|
 | FERNANDO LEON PARADA, PH.D     | fleon@udistrital.edu.co |
+
