@@ -1,0 +1,485 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.container {
+  max-width: 980px;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 1rem;
+}
+
+/* Header y barra superior */
+
+.top-header h1 {
+  text-align: center;
+  margin: 0 0 0.4rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #4b5563;
+  margin-bottom: 1.4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #d1d5db;
+  border-radius: 999px;
+  padding: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-btn {
+  border: none;
+  background: transparent;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #4b5563;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.nav-btn.active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+/* Vistas */
+
+.view {
+  display: none;
+}
+
+.view.active-view {
+  display: block;
+}
+
+/* Cards generales */
+
+.card {
+  background: #ffffff;
+  border-radius: 0.9rem;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+}
+
+/* Texto auxiliar */
+
+.small {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Inputs y selects */
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  margin-top: 0.2rem;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #111827;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+  background: #ffffff;
+}
+
+.input-error {
+  border-color: #f97373 !important;
+}
+
+/* Botones */
+
+button {
+  margin-top: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    background 0.15s ease;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+}
+
+button.secondary {
+  background: #6b7280;
+  box-shadow: 0 6px 14px rgba(55, 65, 81, 0.35);
+}
+
+button.secondary:hover {
+  background: #4b5563;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* Grids */
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.player-block {
+  background: #f9fafb;
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.9rem 0.9rem;
+  border: 1px solid #e5e7eb;
+}
+
+.player-block h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+/* Errores */
+
+.error-list {
+  margin-top: 0.5rem;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.error-list ul {
+  margin: 0.2rem 0 0;
+  padding-left: 1.2rem;
+}
+
+/* Botones en fila */
+
+.buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+/* Orden fijo personalizado */
+
+.fixed-order-config {
+  margin-top: 0.75rem;
+}
+
+.fixed-order-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+}
+
+.fixed-arrow {
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+.fixed-order-row select {
+  max-width: 80px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Demo checkbox */
+
+.demo-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.demo-option input[type="checkbox"] {
+  width: auto;
+}
+
+/* Control de velocidad */
+
+.speed-control {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.speed-control input[type="range"] {
+  width: 180px;
+  vertical-align: middle;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+}
+
+/* Resultados y logs */
+
+.status {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.results {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.4rem;
+}
+
+.results-table th,
+.results-table td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.results-table th {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.log {
+  background: #f9fafb;
+  border-radius: 0.7rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+/* Gráfico / grafo de disparos */
+
+#graphContainer {
+  margin-top: 0.8rem;
+  padding: 0.6rem 0.7rem 0.8rem;
+  border-radius: 0.8rem;
+  border: 1px dashed #d1d5db;
+  background: #f9fafb;
+}
+
+#graphCanvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0.6rem;
+  background: #fefefe;
+}
+
+/* Layout grafo + log */
+
+.graph-layout {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-top: 0.4rem;
+}
+
+.graph-layout canvas {
+  flex: 1 1 55%;
+}
+
+.graph-log {
+  flex: 1 1 45%;
+  max-height: 260px;
+}
+
+.graph-mini {
+  margin-top: 0.6rem;
+  padding: 0.4rem 0.5rem 0.6rem;
+  border-radius: 0.7rem;
+  border: 1px dashed #d1d5db;
+  background: #f9fafb;
+}
+
+#animGraphCanvas {
+  display: block;
+  margin-top: 0.4rem;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0.6rem;
+  background: #fefefe;
+}
+
+/* Responsive grafo + log */
+
+@media (max-width: 800px) {
+  .graph-layout {
+    flex-direction: column;
+  }
+}
+
+/* Simulación de una partida: subtabs */
+
+.single-nav {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 0.2rem;
+}
+
+.single-nav-btn {
+  border: none;
+  background: transparent;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #4b5563;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.single-nav-btn.active {
+  background: #ffffff;
+  color: #111827;
+}
+
+.single-panel {
+  display: none;
+}
+
+.single-panel.active-single {
+  display: block;
+}
+
+/* Arena / modo juego */
+
+.arena {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  background: radial-gradient(circle at top, #e5e7eb, #f9fafb);
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+}
+
+.fighter {
+  text-align: center;
+  padding: 0.6rem 0.8rem 0.75rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  min-width: 130px;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    opacity 0.15s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.fighter-avatar {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.fighter-name {
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+
+.fighter-prob {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.fighter-state {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  display: inline-block;
+  background: #e5e7eb;
+}
+
+.fighter.shooter {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.75);
+  border-color: #3b82f6;
+}
+
+.fighter.target {
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.75);
+  border-color: #ef4444;
+}
+
+.fighter.dead {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+
+.arena-controls {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}

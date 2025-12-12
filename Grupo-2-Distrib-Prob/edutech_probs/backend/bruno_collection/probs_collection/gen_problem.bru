@@ -1,0 +1,23 @@
+meta {
+  name: gen_problem
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:8000/generate-problem
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "binomial_1",
+    "mode": "repaso"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

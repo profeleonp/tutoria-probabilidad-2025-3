@@ -1,0 +1,545 @@
+[
+  {
+    "id": "binomial_1",
+    "version": 2,
+    "topic": "Distribución Binomial",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_binomial",
+    "doc_summary": "La distribución binomial modela el número de éxitos en n ensayos independientes, cada uno con probabilidad p. Su fórmula es: P(X=k) = C(n,k)·p^k·(1−p)^(n−k). Se usa cuando contamos eventos discretos con dos posibles resultados (éxito/fracaso).",
+    "solver": "binomial_exact",
+    "template": "Una máquina produce artículos con probabilidad de defecto p={p}. Si se toman {n} artículos, ¿cuál es la probabilidad de exactamente {x} defectuosos?",
+    "params": {
+      "n": { "min": 5, "max": 40, "type": "int" },
+      "p": { "min": 0.05, "max": 0.30, "type": "float" },
+      "x": { "min": 0, "max": "n", "type": "int" }
+    },
+    "variables": {
+      "n": { "latex": "n", "description": "Número de artículos inspeccionados" },
+      "p": { "latex": "p", "description": "Probabilidad de defecto en cada artículo" },
+      "x": { "latex": "x", "description": "Número de artículos defectuosos" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_exact",
+          "label": "Probabilidad P(X = x)",
+          "general_formula_latex": "P(X = x) = \\binom{n}{x} \\, p^{x} (1-p)^{n-x}",
+          "expression_latex_template": "P(X = {x}) = \\binom{{n}}{{x}} \\, {p}^{{x}} (1-{p})^{{n}-{x}}",
+          "expression_symbolic": "binom(n, x) * p**x * (1-p)**(n-x)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "multinomial_1",
+    "version": 2,
+    "topic": "Distribución Multinomial",
+    "doc_url": "https://en.wikipedia.org/wiki/Multinomial_distribution",
+    "doc_summary": "Extiende la distribución binomial a más de dos categorías. Se usa para modelar conteos simultáneos de eventos en varias categorías (k1, k2, k3...). Su fórmula es: n! / (k1!k2!...) × p1^k1 × p2^k2 ... con p1+p2+...=1.",
+    "solver": "multinomial_prob",
+    "template": "En un ascensor UCI, las probabilidades son Covid={p1}, Omicron={p2}, N1H1={p3}. ¿Cuál es la probabilidad de que ocurran {c1} casos Covid, {c2} Omicron y {c3} N1H1?",
+    "params": {
+      "c1": { "min": 0, "max": 5, "type": "int" },
+      "c2": { "min": 0, "max": 5, "type": "int" },
+      "c3": { "min": 0, "max": 5, "type": "int" },
+      "p1": { "min": 0.20, "max": 0.30, "type": "float" },
+      "p2": { "min": 0.30, "max": 0.40, "type": "float" },
+      "p3": { "min": 0.30, "max": 0.40, "type": "float" }
+    },
+    "variables": {
+      "c1": { "latex": "k_1", "description": "Número de casos Covid" },
+      "c2": { "latex": "k_2", "description": "Número de casos Omicron" },
+      "c3": { "latex": "k_3", "description": "Número de casos N1H1" },
+      "p1": { "latex": "p_1", "description": "Probabilidad de Covid" },
+      "p2": { "latex": "p_2", "description": "Probabilidad de Omicron" },
+      "p3": { "latex": "p_3", "description": "Probabilidad de N1H1" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_multinomial",
+          "label": "Probabilidad conjunta multinomial",
+          "general_formula_latex": "P(K_1 = k_1, K_2 = k_2, K_3 = k_3) = \\frac{n!}{k_1! k_2! k_3!} \\, p_1^{k_1} p_2^{k_2} p_3^{k_3}",
+          "expression_latex_template": "P(K_1 = {c1}, K_2 = {c2}, K_3 = {c3}) = \\frac{{({c1}+{c2}+{c3})}!}{{{c1}}! {{c2}}! {{c3}}!} \\, {p1}^{{c1}} {p2}^{{c2}} {p3}^{{c3}}",
+          "expression_symbolic": "n = c1 + c2 + c3; factorial(n) / (factorial(c1) * factorial(c2) * factorial(c3)) * p1**c1 * p2**c2 * p3**c3",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "torneo_1",
+    "version": 2,
+    "topic": "Distribución Binomial – Torneo",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_binomial",
+    "doc_summary": "Un torneo con partidos independientes se modela como una sucesión de ensayos Bernoulli. El número de victorias del segundo equipo sigue una binomial con p igual a la probabilidad de que el primer equipo pierda. Se calcula P(X ≥ k).",
+    "solver": "torneo_segundo_gana",
+    "template": "Dos equipos juegan {n_partidos} partidos. El segundo gana si consigue al menos {k_min} victorias. La probabilidad de que el primero gane un partido es {p}. ¿Cuál es la probabilidad de que el segundo gane el torneo?",
+    "params": {
+      "n_partidos": { "min": 3, "max": 7, "type": "int" },
+      "k_min": { "min": 1, "max": "n_partidos", "type": "int" },
+      "p": { "min": 0.40, "max": 0.70, "type": "float" }
+    },
+    "variables": {
+      "n_partidos": { "latex": "n", "description": "Número total de partidos" },
+      "k_min": { "latex": "k_{\\min}", "description": "Victorias mínimas del segundo equipo para ganar el torneo" },
+      "p": { "latex": "p", "description": "Probabilidad de que el primer equipo gane un partido" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_segundo_gana",
+          "label": "Probabilidad de que el segundo gane el torneo",
+          "general_formula_latex": "P(\\text{segundo gana}) = \\sum_{x=k_{\\min}}^{n} \\binom{n}{x} (1-p)^{x} p^{n-x}",
+          "expression_latex_template": "P(\\text{segundo gana}) = \\sum_{x={k_min}}^{{n_partidos}} \\binom{{n_partidos}}{x} (1-{p})^{x} {p}^{{n_partidos}-x}",
+          "expression_symbolic": "sum(binom(n_partidos, x) * (1-p)**x * p**(n_partidos-x) for x in range(k_min, n_partidos+1))",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "poisson_1",
+    "version": 2,
+    "topic": "Distribución de Poisson",
+    "doc_url": "https://www.geeksforgeeks.org/maths/poisson-distribution/",
+    "doc_summary": "La distribución de Poisson modela el número de eventos raros en un intervalo. Su parámetro λ representa el número esperado de eventos. Fórmula: P(X=k) = e^(−λ) λ^k / k!. Sirve para fallas, llegadas, decaimiento atómico, etc.",
+    "solver": "poisson_mas_de_un",
+    "template": "Una muestra contiene {n} átomos. La probabilidad de que uno decaiga en 1 minuto es {p}. ¿Cuál es la probabilidad de que más de un átomo decaiga en {t} minutos?",
+    "params": {
+      "n": { "min": 10, "max": 100, "type": "int" },
+      "p": { "min": 0.01, "max": 0.10, "type": "float" },
+      "t": { "min": 1, "max": 10, "type": "int" }
+    },
+    "variables": {
+      "n": { "latex": "n", "description": "Número de átomos" },
+      "p": { "latex": "p", "description": "Probabilidad de decaimiento en 1 minuto para un átomo" },
+      "t": { "latex": "t", "description": "Número de minutos considerados" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_mas_de_un",
+          "label": "Probabilidad de más de un decaimiento",
+          "general_formula_latex": "P(X > 1) = 1 - e^{-\\lambda} (1 + \\lambda), \\quad \\lambda = n p t",
+          "expression_latex_template": "P(X > 1) = 1 - e^{-{n}{p}{t}} \\left(1 + {n}{p}{t}\\right)",
+          "expression_symbolic": "lam = n * p * t; 1 - exp(-lam) * (1 + lam)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "defectuosos_1",
+    "version": 2,
+    "topic": "Distribución Binomial",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_binomial",
+    "doc_summary": "Una variable binomial permite calcular probabilidades de intervalos como P(X > k) o P(X < m). Se suman las probabilidades de cada caso o se aplica 1 − F(k). Muy útil en control de calidad y muestreo por inspección.",
+    "solver": "probs_defectuosos",
+    "template": "Un proceso tiene prob. de defectuosos p={p_defectuosos}. Si se evalúan {n_muestra} artículos, ¿cuál es la probabilidad de que X exceda {k_excede} y de que X sea menor que {k_menor}?",
+    "params": {
+      "p_defectuosos": { "min": 0.05, "max": 0.20, "type": "float" },
+      "n_muestra": { "min": 50, "max": 200, "type": "int" },
+      "k_excede": { "min": 1, "max": "n_muestra", "type": "int" },
+      "k_menor": { "min": 0, "max": "n_muestra", "type": "int" }
+    },
+    "variables": {
+      "p_defectuosos": { "latex": "p", "description": "Probabilidad de defecto en cada artículo" },
+      "n_muestra": { "latex": "n", "description": "Tamaño de la muestra" },
+      "k_excede": { "latex": "k_1", "description": "Umbral para el evento X > k_1" },
+      "k_menor": { "latex": "k_2", "description": "Umbral para el evento X < k_2" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_X_mayor_k_excede",
+          "label": "Probabilidad P(X > k_excede)",
+          "general_formula_latex": "P(X > k) = 1 - \\sum_{x=0}^{k} \\binom{n}{x} p^{x} (1-p)^{n-x}",
+          "expression_latex_template": "P(X > {k_excede}) = 1 - \\sum_{x=0}^{{k_excede}} \\binom{{n_muestra}}{x} {p_defectuosos}^{x} (1-{p_defectuosos})^{{n_muestra}-x}",
+          "expression_symbolic": "1 - sum(binom(n_muestra, x) * p_defectuosos**x * (1-p_defectuosos)**(n_muestra-x) for x in range(0, k_excede+1))",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        },
+        {
+          "id": "prob_X_menor_k_menor",
+          "label": "Probabilidad P(X < k_menor)",
+          "general_formula_latex": "P(X < k) = \\sum_{x=0}^{k-1} \\binom{n}{x} p^{x} (1-p)^{n-x}",
+          "expression_latex_template": "P(X < {k_menor}) = \\sum_{x=0}^{{k_menor}-1} \\binom{{n_muestra}}{x} {p_defectuosos}^{x} (1-{p_defectuosos})^{{n_muestra}-x}",
+          "expression_symbolic": "sum(binom(n_muestra, x) * p_defectuosos**x * (1-p_defectuosos)**(n_muestra-x) for x in range(0, k_menor))",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "exp_1",
+    "version": 2,
+    "topic": "Distribución Exponencial",
+    "doc_url": "https://en.wikipedia.org/wiki/Exponential_distribution",
+    "doc_summary": "Modela tiempos entre eventos cuando ocurren a una tasa constante λ. Su función de supervivencia es S(t)=e^(−λt). Es la distribución básica de tiempos de vida sin memoria: el futuro no depende del pasado.",
+    "solver": "prob_falla_antes",
+    "template": "La tasa de falla es {tasa} por hora. ¿Cuál es la probabilidad de que falle antes de {horas} horas?",
+    "params": {
+      "tasa": { "min": 0.01, "max": 0.20, "type": "float" },
+      "horas": { "min": 1, "max": 10, "type": "int" }
+    },
+    "variables": {
+      "tasa": { "latex": "\\lambda", "description": "Tasa de falla por hora" },
+      "horas": { "latex": "t", "description": "Tiempo en horas" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_falla_antes",
+          "label": "Probabilidad de falla antes de t",
+          "general_formula_latex": "P(T < t) = 1 - e^{-\\lambda t}",
+          "expression_latex_template": "P(T < {horas}) = 1 - e^{-{tasa} {horas}}",
+          "expression_symbolic": "1 - exp(-tasa * horas)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "weibull_1",
+    "version": 2,
+    "topic": "Distribución Weibull",
+    "doc_url": "https://en.wikipedia.org/wiki/Weibull_distribution",
+    "doc_summary": "Weibull es usada para modelar tiempos de vida con diferentes patrones de falla. Su forma depende de β: si β<1 fallas tempranas, β=1 exponencial, β>1 envejecimiento. Es fundamental en ingeniería de confiabilidad.",
+    "solver": "prob_bateria_operacion",
+    "template": "Una batería tiene una vida con Weibull(alpha={alpha}, beta={beta}). ¿Cuál es la probabilidad de que siga operando después de {anos} años?",
+    "params": {
+      "alpha": { "min": 0.1, "max": 3.0, "type": "float" },
+      "beta": { "min": 0.5, "max": 5.0, "type": "float" },
+      "anos": { "min": 0.1, "max": 10.0, "type": "float" }
+    },
+    "variables": {
+      "alpha": { "latex": "\\alpha", "description": "Parámetro de escala de Weibull" },
+      "beta": { "latex": "\\beta", "description": "Parámetro de forma de Weibull" },
+      "anos": { "latex": "t", "description": "Tiempo en años" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_sigue_operando",
+          "label": "Probabilidad de que la batería siga operando",
+          "general_formula_latex": "P(T > t) = \\exp\\left(-\\left( \\frac{t}{\\alpha} \\right)^{\\beta} \\right)",
+          "expression_latex_template": "P(T > {anos}) = \\exp\\left(-\\left( \\frac{ {anos} }{ {alpha} } \\right)^{ {beta} } \\right)",
+          "expression_symbolic": "exp(- (anos/alpha)**beta)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "normal_1",
+    "version": 2,
+    "topic": "Distribución Normal",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_normal",
+    "doc_summary": "La distribución normal modela variables continuas con simetría alrededor de la media µ. Su desviación σ mide la dispersión. Para intervalos se usan valores Z = (x−µ)/σ y la tabla normal estándar.",
+    "solver": "prob_bateria_entre",
+    "template": "Las baterías siguen una N({media_horas}, {desviacion_horas}). ¿Cuál es la probabilidad de que duren entre {t_min} y {t_max} horas?",
+    "params": {
+      "media_horas": { "min": 30, "max": 80, "type": "float" },
+      "desviacion_horas": { "min": 2, "max": 10, "type": "float" },
+      "t_min": { "min": 20, "max": 40, "type": "float" },
+      "t_max": { "min": 50, "max": 90, "type": "float" }
+    },
+    "variables": {
+      "media_horas": { "latex": "\\mu", "description": "Media de la vida de las baterías (horas)" },
+      "desviacion_horas": { "latex": "\\sigma", "description": "Desviación estándar de la vida (horas)" },
+      "t_min": { "latex": "t_{\\min}", "description": "Límite inferior de tiempo" },
+      "t_max": { "latex": "t_{\\max}", "description": "Límite superior de tiempo" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_entre_tmin_tmax",
+          "label": "Probabilidad de durar entre t_min y t_max",
+          "general_formula_latex": "P(t_{\\min} < X < t_{\\max}) = \\Phi\\left( \\frac{t_{\\max}-\\mu}{\\sigma} \\right) - \\Phi\\left( \\frac{t_{\\min}-\\mu}{\\sigma} \\right)",
+          "expression_latex_template": "P({t_min} < X < {t_max}) = \\Phi\\left( \\frac{{t_max}-{media_horas}}{{desviacion_horas}} \\right) - \\Phi\\left( \\frac{{t_min}-{media_horas}}{{desviacion_horas}} \\right)",
+          "expression_symbolic": "z_min = (t_min - media_horas) / desviacion_horas; z_max = (t_max - media_horas) / desviacion_horas; Phi(z_max) - Phi(z_min)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "resistores_1",
+    "version": 2,
+    "topic": "Distribución Multinomial",
+    "doc_url": "https://en.wikipedia.org/wiki/Multinomial_distribution",
+    "doc_summary": "En una multinomial, la media de cada categoría es n·pi y la varianza es n·pi·(1−pi). Las covarianzas entre categorías son negativas: −n·pi·pj, porque al aumentar una, bajan las otras.",
+    "solver": "media_var_resistores",
+    "template": "Con P0={p_0}, P1={p_1}, P2={p_2}, halle media y varianza del número de resistores correctos.",
+    "params": {
+      "p_0": { "min": 0, "max": 0.5, "type": "float" },
+      "p_1": { "min": 0.2, "max": 0.7, "type": "float" },
+      "p_2": { "min": 0.1, "max": 0.6, "type": "float" }
+    },
+    "variables": {
+      "p_0": { "latex": "p_0", "description": "Probabilidad de 0 resistores correctos" },
+      "p_1": { "latex": "p_1", "description": "Probabilidad de 1 resistor correcto" },
+      "p_2": { "latex": "p_2", "description": "Probabilidad de 2 resistores correctos" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "media_resistores",
+          "label": "Media del número de resistores correctos",
+          "general_formula_latex": "E[X] = 0\\cdot p_0 + 1\\cdot p_1 + 2\\cdot p_2",
+          "expression_latex_template": "E[X] = 0\\cdot {p_0} + 1\\cdot {p_1} + 2\\cdot {p_2}",
+          "expression_symbolic": "p_1 + 2 * p_2",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        },
+        {
+          "id": "var_resistores",
+          "label": "Varianza del número de resistores correctos",
+          "general_formula_latex": "E[X^2] = 0^2 p_0 + 1^2 p_1 + 2^2 p_2,\\quad \\operatorname{Var}(X) = E[X^2] - (E[X])^2",
+          "expression_latex_template": "E[X^2] = 0^2 {p_0} + 1^2 {p_1} + 2^2 {p_2},\\ \\operatorname{Var}(X) = E[X^2] - (E[X])^2",
+          "expression_symbolic": "EX = p_1 + 2 * p_2; EX2 = p_1 + 4 * p_2; EX2 - EX**2",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "comisiones_1",
+    "version": 2,
+    "topic": "Valor Esperado",
+    "doc_url": "https://es.wikipedia.org/wiki/Esperanza_matem%C3%A1tica",
+    "doc_summary": "El valor esperado representa el promedio ponderado de los posibles resultados: E(X)=Σ p_i·x_i. En decisiones económicas permite encontrar la ganancia media a largo plazo.",
+    "solver": "valor_esperado_comisiones",
+    "template": "El agente tiene probabilidades p1={p_exito_1}, p2={p_exito_2} y comisiones c1={comision_1}, c2={comision_2}. ¿Cuál es el valor esperado de comisiones?",
+    "params": {
+      "p_exito_1": { "min": 0, "max": 1, "type": "float" },
+      "comision_1": { "min": 10, "max": 200, "type": "float" },
+      "p_exito_2": { "min": 0, "max": 1, "type": "float" },
+      "comision_2": { "min": 10, "max": 200, "type": "float" }
+    },
+    "variables": {
+      "p_exito_1": { "latex": "p_1", "description": "Probabilidad del primer tipo de comisión" },
+      "comision_1": { "latex": "c_1", "description": "Monto de la primera comisión" },
+      "p_exito_2": { "latex": "p_2", "description": "Probabilidad del segundo tipo de comisión" },
+      "comision_2": { "latex": "c_2", "description": "Monto de la segunda comisión" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "valor_esperado_comisiones",
+          "label": "Valor esperado de las comisiones",
+          "general_formula_latex": "E[C] = p_1 c_1 + p_2 c_2",
+          "expression_latex_template": "E[C] = {p_exito_1}{comision_1} + {p_exito_2}{comision_2}",
+          "expression_symbolic": "p_exito_1 * comision_1 + p_exito_2 * comision_2",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "utilidad_1",
+    "version": 2,
+    "topic": "Optimización",
+    "doc_url": "https://en.wikipedia.org/wiki/Optimization_(mathematics)",
+    "doc_summary": "Optimizar una función consiste en encontrar su valor máximo o mínimo. Cuando hay una función de utilidad con costo cuadrático, suele maximizarse derivando e igualando a cero.",
+    "solver": "utilidad_maxima",
+    "template": "Un dron tiene ingreso por hora {tasa} y costo cuadrático {costo}. ¿Cuál es la utilidad esperada máxima?",
+    "params": {
+      "tasa": { "min": 5, "max": 30, "type": "float" },
+      "costo": { "min": 1, "max": 10, "type": "float" }
+    },
+    "variables": {
+      "tasa": { "latex": "\\tau", "description": "Ingreso por hora" },
+      "costo": { "latex": "c", "description": "Coeficiente de costo cuadrático" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "utilidad_maxima",
+          "label": "Utilidad esperada máxima",
+          "general_formula_latex": "U_{\\max} = \\dfrac{\\tau^{2}}{4c}",
+          "expression_latex_template": "U_{\\max} = \\dfrac{{tasa}^{2}}{4\\,{costo}}",
+          "expression_symbolic": "tasa**2 / (4 * costo)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "esferas_1",
+    "version": 2,
+    "topic": "Distribución Normal",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_normal",
+    "doc_summary": "Para calcular la proporción dentro de una especificación [L, U], se obtienen Z_L y Z_U y luego P(L < X < U) = Φ(Z_U) − Φ(Z_L). Es muy usado en control de calidad.",
+    "solver": "proporcion_esferas",
+    "template": "Las esferas tienen media {media}, desviación {desviacion}, y especificación {centro}±{tolerancia}. ¿Qué proporción cumple la especificación?",
+    "params": {
+      "media": { "min": 2.4, "max": 2.6, "type": "float" },
+      "desviacion": { "min": 0.005, "max": 0.02, "type": "float" },
+      "centro": { "min": 2.45, "max": 2.55, "type": "float" },
+      "tolerancia": { "min": 0.005, "max": 0.015, "type": "float" }
+    },
+    "variables": {
+      "media": { "latex": "\\mu", "description": "Media del diámetro de las esferas" },
+      "desviacion": { "latex": "\\sigma", "description": "Desviación estándar del diámetro" },
+      "centro": { "latex": "m", "description": "Valor objetivo del diámetro" },
+      "tolerancia": { "latex": "\\Delta", "description": "Tolerancia permitida alrededor del objetivo" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "proporcion_en_especificacion",
+          "label": "Proporción que cumple la especificación",
+          "general_formula_latex": "L = m - \\Delta,\\ U = m + \\Delta,\\ P(L < X < U) = \\Phi\\left( \\frac{U-\\mu}{\\sigma} \\right) - \\Phi\\left( \\frac{L-\\mu}{\\sigma} \\right)",
+          "expression_latex_template": "L = {centro}-{tolerancia},\\ U = {centro}+{tolerancia},\\\\ P(L < X < U) = \\Phi\\left( \\frac{{centro}+{tolerancia}-{media}}{{desviacion}} \\right) - \\Phi\\left( \\frac{{centro}-{tolerancia}-{media}}{{desviacion}} \\right)",
+          "expression_symbolic": "L = centro - tolerancia; U = centro + tolerancia; zL = (L - media)/desviacion; zU = (U - media)/desviacion; Phi(zU) - Phi(zL)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "hiper_1",
+    "version": 2,
+    "topic": "Distribución Hipergeométrica",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_hipergeom%C3%A9trica",
+    "doc_summary": "Se usa cuando se extraen elementos sin reemplazo. Media = n·K/N y varianza = n(K/N)(1−K/N)((N−n)/(N−1)). Muy importante en muestreo y calidad.",
+    "solver": "hiper_media_var",
+    "template": "En un lote de {n_total} componentes, {n_buenos} son buenos. Si se inspeccionan {n_muestra}, halle la media y varianza del número de buenos en la muestra.",
+    "params": {
+      "n_total": { "min": 3, "max": 50, "type": "int" },
+      "n_buenos": { "min": 0, "max": "n_total", "type": "int" },
+      "n_muestra": { "min": 1, "max": "n_total", "type": "int" }
+    },
+    "variables": {
+      "n_total": { "latex": "N", "description": "Número total de componentes en el lote" },
+      "n_buenos": { "latex": "K", "description": "Número de componentes buenos en el lote" },
+      "n_muestra": { "latex": "n", "description": "Tamaño de la muestra" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "media_hipergeometrica",
+          "label": "Media del número de buenos",
+          "general_formula_latex": "E[X] = n \\frac{K}{N}",
+          "expression_latex_template": "E[X] = {n_muestra} \\frac{{n_buenos}}{{n_total}}",
+          "expression_symbolic": "n_muestra * (n_buenos / n_total)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        },
+        {
+          "id": "var_hipergeometrica",
+          "label": "Varianza del número de buenos",
+          "general_formula_latex": "\\operatorname{Var}(X) = n \\frac{K}{N} \\left(1-\\frac{K}{N}\\right) \\left(\\frac{N-n}{N-1}\\right)",
+          "expression_latex_template": "\\operatorname{Var}(X) = {n_muestra} \\frac{{n_buenos}}{{n_total}} \\left(1-\\frac{{n_buenos}}{{n_total}}\\right) \\left(\\frac{{n_total}-{n_muestra}}{{n_total}-1}\\right)",
+          "expression_symbolic": "p = n_buenos / n_total; n = n_muestra; n * p * (1-p) * ((n_total - n) / (n_total - 1))",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "binomial_2",
+    "version": 2,
+    "topic": "Distribución Binomial",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_binomial",
+    "doc_summary": "P(X ≥ k) en una binomial se obtiene sumando desde k hasta n, o usando 1−F(k−1). Muy útil cuando se desea determinar mínimos niveles de calidad o éxito.",
+    "solver": "binomial_al_menos",
+    "template": "Una máquina produce piezas correctas con probabilidad p={p}. Si se inspeccionan {n} piezas, ¿cuál es la probabilidad de obtener al menos {k} piezas correctas?",
+    "params": {
+      "n": { "min": 10, "max": 60, "type": "int" },
+      "p": { "min": 0.6, "max": 0.95, "type": "float" },
+      "k": { "min": 1, "max": "n", "type": "int" }
+    },
+    "variables": {
+      "n": { "latex": "n", "description": "Número de piezas inspeccionadas" },
+      "p": { "latex": "p", "description": "Probabilidad de que una pieza sea correcta" },
+      "k": { "latex": "k", "description": "Mínimo número de piezas correctas" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_al_menos_k",
+          "label": "Probabilidad de al menos k piezas correctas",
+          "general_formula_latex": "P(X \\ge k) = \\sum_{x=k}^{n} \\binom{n}{x} p^{x} (1-p)^{n-x}",
+          "expression_latex_template": "P(X \\ge {k}) = \\sum_{x={k}}^{{n}} \\binom{{n}}{x} {p}^{x} (1-{p})^{{n}-x}",
+          "expression_symbolic": "sum(binom(n, x) * p**x * (1-p)**(n-x) for x in range(k, n+1))",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "poisson_2",
+    "version": 2,
+    "topic": "Distribución de Poisson",
+    "doc_url": "https://www.scribbr.com/statistics/poisson-distribution/",
+    "doc_summary": "Para un conteo exacto P(X=k) se usa la fórmula básica de Poisson. Es muy útil para llegadas de clientes, llamadas y eventos aleatorios en tiempo.",
+    "solver": "poisson_exacto",
+    "template": "En un centro de llamadas llegan en promedio {lambda_} llamadas por minuto. ¿Cuál es la probabilidad de recibir exactamente {k} llamadas en un minuto?",
+    "params": {
+      "lambda_": { "min": 0.5, "max": 5.0, "type": "float" },
+      "k": { "min": 0, "max": 10, "type": "int" }
+    },
+    "variables": {
+      "lambda_": { "latex": "\\lambda", "description": "Tasa promedio de llamadas por minuto" },
+      "k": { "latex": "k", "description": "Número de llamadas en el intervalo" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_poisson_exacto",
+          "label": "Probabilidad P(X = k)",
+          "general_formula_latex": "P(X = k) = e^{-\\lambda} \\frac{\\lambda^{k}}{k!}",
+          "expression_latex_template": "P(X = {k}) = e^{-{lambda_}} \\frac{{lambda_}^{{k}}}{{{k}!}}",
+          "expression_symbolic": "exp(-lambda_) * lambda_**k / factorial(k)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "normal_2",
+    "version": 2,
+    "topic": "Distribución Normal",
+    "doc_url": "https://es.wikipedia.org/wiki/Distribuci%C3%B3n_normal",
+    "doc_summary": "Para hallar P(X > a), se convierte a Z = (a−µ)/σ y se usa la tabla normal: P(X>a)=1−Φ(Z). Fundamental en procesos industriales y control de calidad.",
+    "solver": "normal_mayor_que",
+    "template": "Un proceso industrial produce longitudes con distribución normal N({mu}, {sigma}). ¿Cuál es la probabilidad de que una pieza mida más de {limite} unidades?",
+    "params": {
+      "mu": { "min": 20, "max": 100, "type": "float" },
+      "sigma": { "min": 2, "max": 20, "type": "float" },
+      "limite": { "min": 10, "max": 120, "type": "float" }
+    },
+    "variables": {
+      "mu": { "latex": "\\mu", "description": "Media de la longitud" },
+      "sigma": { "latex": "\\sigma", "description": "Desviación estándar de la longitud" },
+      "limite": { "latex": "a", "description": "Límite inferior a superar" }
+    },
+    "math": {
+      "results": [
+        {
+          "id": "prob_mayor_que_limite",
+          "label": "Probabilidad de que la longitud supere el límite",
+          "general_formula_latex": "P(X > a) = 1 - \\Phi\\left( \\frac{a-\\mu}{\\sigma} \\right)",
+          "expression_latex_template": "P(X > {limite}) = 1 - \\Phi\\left( \\frac{{limite}-{mu}}{{sigma}} \\right)",
+          "expression_symbolic": "z = (limite - mu) / sigma; 1 - Phi(z)",
+          "numeric_format": { "type": "decimal", "decimals": 4, "rounding": "half_up" }
+        }
+      ]
+    }
+  }
+]
