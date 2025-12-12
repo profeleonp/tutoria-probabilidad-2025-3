@@ -7,7 +7,12 @@
 - Universidad Distrital Francisco José de Caldas
 - Periodos académicos 2026-1 y 2025-3
 
-### Director
+### Director y Productor
+
 | Profesor                       | Correo Institucional    |
 |--------------------------------|-------------------------|
 | FERNANDO LEON PARADA, PH.D     | fleon@udistrital.edu.co |
+
+### Licencia de Uso
+
+Se autoriza a la comunidad académica la descarga, reproducción, estudio, análisis y ejecución de los aplicativos de éste repositorio, bajo la licencia de **Libre Distribución de Código Abierto GNU/GPL3**. 
