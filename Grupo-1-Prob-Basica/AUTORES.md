@@ -12,7 +12,7 @@ Periodo académico 2025-3
 1. Cuestionarios-Probabilidad-Basica
 2. Entrenamiento-Combates-Estocásticos
 
-## Autores
+## Coautores
 | Nombre                         | Código      | Correo Institucional        |
 |--------------------------------|-------------|-----------------------------|
 | GUEVARA HERRAN NICOLAS         | 20211180026 | nguevarah@udistrital.edu.co |
@@ -25,3 +25,4 @@ Periodo académico 2025-3
 | Profesor                       | Correo Institucional    |
 |--------------------------------|-------------------------|
 | FERNANDO LEON PARADA, PH.D     | fleon@udistrital.edu.co |
+
