@@ -4,7 +4,7 @@ Tutoría de Probabilidad
 Proyecto Curricular Ingeniería de Sistemas
 Facultad de Ingeniería
 Universidad Distrital Francisco José de Caldas
-Periodo académico 2025-3
+Periodos académicos 2025-3 y 2026-1
 
 ## Grupo 1.
 
@@ -20,9 +20,10 @@ Periodo académico 2025-3
 | PARRA GONZALEZ CRISTIAN ARTURO | 20201578102 | craparrag@udistrital.edu.co |
 
 
-### Director
+### Director y Productor
 
 | Profesor                       | Correo Institucional    |
 |--------------------------------|-------------------------|
 | FERNANDO LEON PARADA, PH.D     | fleon@udistrital.edu.co |
+
 
