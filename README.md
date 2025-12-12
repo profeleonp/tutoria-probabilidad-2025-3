@@ -5,7 +5,7 @@
 - Proyecto Curricular Ingeniería de Sistemas
 - Facultad de Ingeniería
 - Universidad Distrital Francisco José de Caldas
-- Periodos académicos 2026-1 y 2025-3
+- Periodos académicos 2025-3 y 2026-1
 
 ### Director y Productor
 
